@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import {
   Star,
@@ -115,6 +115,9 @@ export default function HotalyzeApp() {
                   </Button>
                 </SheetTrigger>
                 <SheetContent>
+                  <SheetHeader>
+                    <SheetTitle>Menü</SheetTitle>
+                  </SheetHeader>
                   <div className="mt-8 flex flex-col space-y-4">
                     <Button variant="ghost" onClick={() => openDemo("overview")} className="justify-start">
                       <Play className="mr-2 h-4 w-4" />
