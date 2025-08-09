@@ -196,7 +196,7 @@ export const packages: PackageItem[] = [
       "Email destek",
       "Aylık güncelleme",
     ],
-    popular: true,
+    popular: false,
     savings: "2,000₺ Tasarruf",
   },
   {
@@ -217,7 +217,7 @@ export const packages: PackageItem[] = [
       "Öncelikli destek",
       "Haftalık güncelleme",
     ],
-    popular: false,
+    popular: true,
     savings: "5,000₺ Tasarruf",
   },
   {
