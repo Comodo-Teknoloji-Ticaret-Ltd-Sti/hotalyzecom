@@ -63,15 +63,15 @@ export const DemoModal: React.FC<DemoModalProps> = ({ open, onClose, activeTab, 
                    data-[state=open]:animate-in data-[state=closed]:animate-out
                    data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0
                    data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right
-                   translate-x-0 translate-y-0 sm:max-w-full sm:rounded-none" // Düzeltme: inset-0, translate-x-0 translate-y-0 eklendi
+                   translate-x-0 translate-y-0 sm:max-w-full sm:rounded-none"
       >
-        <DialogHeader className="p-6 pb-0">
+        <DialogHeader className="p-3 sm:p-6 pb-0">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <Analytics className="h-8 w-8 text-blue-600" />
+            <div className="flex items-center space-x-2 sm:space-x-3">
+              <Analytics className="h-6 w-6 sm:h-8 sm:w-8 text-blue-600" />
               <div>
-                <DialogTitle className="text-2xl font-bold">Canlı Demo - Hotalyze</DialogTitle>
-                <p className="text-gray-600">Gerçek verilerle analiz örnekleri</p>
+                <DialogTitle className="text-lg sm:text-2xl font-bold">Canlı Demo - Hotalyze</DialogTitle>
+                <p className="text-sm sm:text-base text-gray-600">Gerçek verilerle analiz örnekleri</p>
               </div>
             </div>
             <Button variant="ghost" size="icon" onClick={onClose}>
@@ -79,28 +79,33 @@ export const DemoModal: React.FC<DemoModalProps> = ({ open, onClose, activeTab, 
             </Button>
           </div>
         </DialogHeader>
-        <div className="px-6">
+        <div className="px-3 sm:px-6">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-5">
-              <TabsTrigger value="overview" className="text-xs sm:text-sm">
-                📊 Genel
+            <TabsList className="grid w-full grid-cols-5 h-auto p-1">
+              <TabsTrigger value="overview" className="text-xs sm:text-sm px-1 py-2 min-h-[40px] flex flex-col items-center gap-1">
+                <span>📊</span>
+                <span className="hidden sm:inline">Genel</span>
               </TabsTrigger>
-              <TabsTrigger value="sentiment" className="text-xs sm:text-sm">
-                💭 Duygu
+              <TabsTrigger value="sentiment" className="text-xs sm:text-sm px-1 py-2 min-h-[40px] flex flex-col items-center gap-1">
+                <span>💭</span>
+                <span className="hidden sm:inline">Duygu</span>
               </TabsTrigger>
-              <TabsTrigger value="departments" className="text-xs sm:text-sm">
-                🏢 Departman
+              <TabsTrigger value="departments" className="text-xs sm:text-sm px-1 py-2 min-h-[40px] flex flex-col items-center gap-1">
+                <span>🏢</span>
+                <span className="hidden sm:inline">Departman</span>
               </TabsTrigger>
-              <TabsTrigger value="roi" className="text-xs sm:text-sm">
-                💰 ROI
+              <TabsTrigger value="roi" className="text-xs sm:text-sm px-1 py-2 min-h-[40px] flex flex-col items-center gap-1">
+                <span>💰</span>
+                <span className="hidden sm:inline">ROI</span>
               </TabsTrigger>
-              <TabsTrigger value="reviews" className="text-xs sm:text-sm">
-                📝 Yorumlar
+              <TabsTrigger value="reviews" className="text-xs sm:text-sm px-1 py-2 min-h-[40px] flex flex-col items-center gap-1">
+                <span>📝</span>
+                <span className="hidden sm:inline">Yorumlar</span>
               </TabsTrigger>
             </TabsList>
-            <div className="mt-6 max-h-[70vh] overflow-y-auto">
-              <TabsContent value="overview" className="space-y-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="mt-6 max-h-[70vh] overflow-y-auto px-2 sm:px-0">
+              <TabsContent value="overview" className="space-y-4 sm:space-y-6 mx-auto max-w-full">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                   {heroStats.map((stat, index) => (
                     <Card key={index}>
                       <CardContent className="p-4">
@@ -162,8 +167,8 @@ export const DemoModal: React.FC<DemoModalProps> = ({ open, onClose, activeTab, 
                   </Card>
                 </div>
               </TabsContent>
-              <TabsContent value="sentiment" className="space-y-6">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <TabsContent value="sentiment" className="space-y-4 sm:space-y-6 mx-auto max-w-full">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                   <Card>
                     <CardHeader>
                       <CardTitle>Duygu Dağılımı</CardTitle>
@@ -220,7 +225,7 @@ export const DemoModal: React.FC<DemoModalProps> = ({ open, onClose, activeTab, 
                   </Card>
                 </div>
               </TabsContent>
-              <TabsContent value="departments">
+              <TabsContent value="departments" className="mx-auto max-w-full">
                 <Card>
                   <CardHeader>
                     <CardTitle>Departman Performans Analizi</CardTitle>
@@ -247,7 +252,7 @@ export const DemoModal: React.FC<DemoModalProps> = ({ open, onClose, activeTab, 
                   </CardContent>
                 </Card>
               </TabsContent>
-              <TabsContent value="roi">
+              <TabsContent value="roi" className="mx-auto max-w-full">
                 <Card>
                   <CardHeader>
                     <CardTitle>ROI Analizi - Gelir Karşılaştırması</CardTitle>
@@ -286,7 +291,7 @@ export const DemoModal: React.FC<DemoModalProps> = ({ open, onClose, activeTab, 
                   </CardContent>
                 </Card>
               </TabsContent>
-              <TabsContent value="reviews">
+              <TabsContent value="reviews" className="mx-auto max-w-full">
                 <Card>
                   <CardHeader>
                     <CardTitle>Örnek Yorumlar</CardTitle>

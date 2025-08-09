@@ -36,6 +36,7 @@ export default function HotalyzeApp() {
   const [showDemo, setShowDemo] = useState(false)
   const [activeTab, setActiveTab] = useState("overview")
   const [currentTestimonial, setCurrentTestimonial] = useState(0)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -58,6 +59,7 @@ export default function HotalyzeApp() {
   const openDemo = (tab = "overview") => {
     setActiveTab(tab)
     setShowDemo(true)
+    setMobileMenuOpen(false) // Mobile menu'yu kapat
   }
 
   const scrollToSection = (sectionId: string) => {
@@ -65,6 +67,12 @@ export default function HotalyzeApp() {
     if (element) {
       element.scrollIntoView({ behavior: "smooth" })
     }
+    setMobileMenuOpen(false) // Mobile menu'yu kapat
+  }
+
+  const handleMobileCall = () => {
+    window.open("tel:+905059982093", "_self")
+    setMobileMenuOpen(false) // Mobile menu'yu kapat
   }
 
   return (
@@ -100,7 +108,7 @@ export default function HotalyzeApp() {
               <Button variant="ghost" size="icon" onClick={() => setDarkMode(!darkMode)}>
                 {darkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
               </Button>
-              <Sheet>
+              <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
                 <SheetTrigger asChild>
                   <Button variant="ghost" size="icon" className="md:hidden">
                     <Menu className="h-4 w-4" />
@@ -118,7 +126,7 @@ export default function HotalyzeApp() {
                     <Button variant="ghost" onClick={() => scrollToSection("packages")} className="justify-start">
                       Fiyatlar
                     </Button>
-                    <Button className="justify-start" onClick={() => window.open("tel:+905059982093", "_self")}>
+                    <Button className="justify-start" onClick={handleMobileCall}>
                       <Phone className="mr-2 h-4 w-4" />
                       Hemen Ara
                     </Button>
