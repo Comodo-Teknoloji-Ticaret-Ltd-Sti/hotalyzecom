@@ -21,10 +21,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install pnpm
+      - name: Use Node.js
         run: |
-          curl -fsSL https://get.pnpm.io/install.sh | sh -
-          echo "$HOME/.local/share/pnpm" >> $GITHUB_PATH
+          node --version
+          npm --version
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
