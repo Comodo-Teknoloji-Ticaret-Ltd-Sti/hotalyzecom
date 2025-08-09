@@ -58,6 +58,7 @@ export const DemoModal: React.FC<DemoModalProps> = ({ open, onClose, activeTab, 
   return (
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent
+        showCloseButton={false}
         className="fixed inset-0 h-full w-full overflow-hidden p-0
                    data-[state=open]:animate-in data-[state=closed]:animate-out
                    data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0
@@ -311,9 +312,8 @@ export const DemoModal: React.FC<DemoModalProps> = ({ open, onClose, activeTab, 
                                 {[...Array(5)].map((_, i) => (
                                   <Star
                                     key={i}
-                                    className={`h-4 w-4 ${
-                                      i < review.rating ? "fill-current text-yellow-400" : "text-gray-300"
-                                    }`}
+                                    className={`h-4 w-4 ${i < review.rating ? "fill-current text-yellow-400" : "text-gray-300"
+                                      }`}
                                   />
                                 ))}
                               </div>
