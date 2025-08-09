@@ -1,6 +1,11 @@
 /** @type {import('next').NextConfig} */
+const isProd = process.env.NODE_ENV === 'production';
+
 const nextConfig = {
   output: 'export',
+  basePath: isProd ? '/hotalyzecom' : '',
+  assetPrefix: isProd ? '/hotalyzecom/' : '',
+  trailingSlash: true,
   eslint: {
     ignoreDuringBuilds: true,
   },
