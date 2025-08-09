@@ -72,7 +72,7 @@ export default function HotalyzeApp() {
       <div className="min-h-screen bg-background text-foreground">
         {/* Header */}
         <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-          <div className="container flex h-16 items-center justify-between">
+          <div className="container mx-auto flex h-16 items-center justify-between">
             <div className="flex items-center space-x-2">
               <BarChart3 className="h-8 w-8 text-blue-600" />
               <span className="text-2xl font-bold text-blue-600">Hotalyze</span>
@@ -181,7 +181,7 @@ export default function HotalyzeApp() {
               ></div>
             </div>
           </div>
-          <div className="container relative z-10">
+          <div className="container mx-auto relative z-10">
             <div className="space-y-8 text-center">
               <Badge variant="secondary" className="px-4 py-2 text-base">
                 🚀 Türkiye'nin #1 Otel Yorum Analiz Platformu
@@ -227,7 +227,7 @@ export default function HotalyzeApp() {
         </section>
         {/* Testimonials */}
         <section className="bg-gray-50 py-12 md:py-24 dark:bg-gray-900">
-          <div className="container">
+          <div className="container mx-auto">
             <div className="mb-12 space-y-4 text-center">
               <Badge variant="secondary">💬 Müşteri Hikayeleri</Badge>
               <h2 className="text-3xl font-bold md:text-4xl">Başarı Hikayeleri</h2>
@@ -282,7 +282,7 @@ export default function HotalyzeApp() {
         </section>
         {/* Analysis Preview */}
         <section id="analysis" className="py-12 md:py-24">
-          <div className="container">
+          <div className="container mx-auto">
             <div className="mb-12 space-y-4 text-center">
               <Badge variant="secondary">🤖 AI Destekli Analizler</Badge>
               <h2 className="text-3xl font-bold md:text-4xl">Profesyonel Analiz Raporları</h2>
@@ -313,7 +313,7 @@ export default function HotalyzeApp() {
         </section>
         {/* Packages */}
         <section id="packages" className="bg-gray-50 py-12 md:py-24 dark:bg-gray-900">
-          <div className="container">
+          <div className="container mx-auto">
             <div className="mb-12 space-y-4 text-center">
               <Badge variant="secondary">💎 Özel Fiyatlar</Badge>
               <h2 className="text-3xl font-bold md:text-4xl">Size Özel Paketler</h2>
@@ -373,7 +373,7 @@ export default function HotalyzeApp() {
         </section>
         {/* Features */}
         <section className="py-12 md:py-24">
-          <div className="container">
+          <div className="container mx-auto">
             <div className="mb-12 space-y-4 text-center">
               <Badge variant="secondary">⚡ Özellikler</Badge>
               <h2 className="text-3xl font-bold md:text-4xl">Neden Hotalyze?</h2>
@@ -394,7 +394,7 @@ export default function HotalyzeApp() {
         </section>
         {/* CTA */}
         <section className="bg-gradient-to-r from-blue-600 to-purple-600 py-12 text-white md:py-24">
-          <div className="container text-center">
+          <div className="container mx-auto text-center">
             <h2 className="mb-6 text-3xl font-bold md:text-4xl">🚀 Hemen Başlayın, Farkı Görün!</h2>
             <p className="mb-8 text-xl opacity-90">
               Binlerce otel sahibi zaten Hotalyze kullanıyor. Siz de geride kalmayın!
@@ -419,7 +419,7 @@ export default function HotalyzeApp() {
         </section>
         {/* Footer */}
         <footer className="bg-gray-900 py-12 text-white">
-          <div className="container">
+          <div className="container mx-auto">
             <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
               <div>
                 <div className="mb-4 flex items-center space-x-2">
