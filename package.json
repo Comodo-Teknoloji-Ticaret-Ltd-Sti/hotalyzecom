@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "build": "next build",
+    "build:custom": "CUSTOM_DOMAIN=true next build",
     "dev": "next dev",
     "lint": "next lint",
     "start": "next start"

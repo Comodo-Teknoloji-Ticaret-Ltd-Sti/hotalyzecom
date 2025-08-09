@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
-const isGitHubPages = process.env.GITHUB_ACTIONS || process.env.NODE_ENV === 'production';
+// Custom domain build'inde basePath kullanma
+const isCustomDomain = process.env.CUSTOM_DOMAIN === 'true';
+const isGitHubPages = process.env.GITHUB_ACTIONS && !isCustomDomain;
 
 const nextConfig = {
   output: 'export',
