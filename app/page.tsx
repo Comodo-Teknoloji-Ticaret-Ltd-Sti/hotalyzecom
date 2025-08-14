@@ -7,6 +7,8 @@ import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import {
   Star,
   TrendingUp,
@@ -20,7 +22,7 @@ import {
   InfoIcon as Analytics,
   Rocket,
   CheckCircle,
-  MessageSquare,
+  Calculator,
 } from "lucide-react"
 
 import { DemoModal } from "@/components/demo-modal"
@@ -44,12 +46,29 @@ export default function HotalyzeApp() {
     phone: "",
   })
 
+  const [priceCalculator, setPriceCalculator] = useState({
+    commentCount: 0,
+    hotelRoomCount: 0,
+    siteCount: 0,
+    hotelName: "",
+    email: "",
+  })
+
+  const [calculatedPrice, setCalculatedPrice] = useState(150)
+  const [isCalculating, setIsCalculating] = useState(false)
+
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTestimonial((prev) => (prev + 1) % testimonials.length)
     }, 5000)
     return () => clearInterval(interval)
   }, [])
+
+  useEffect(() => {
+    const price =
+      priceCalculator.commentCount * 0.5 + priceCalculator.hotelRoomCount * 0.2 + priceCalculator.siteCount * 1 + 150
+    setCalculatedPrice(Math.round(price * 100) / 100) // Round to 2 decimal places
+  }, [priceCalculator.commentCount, priceCalculator.hotelRoomCount, priceCalculator.siteCount])
 
   const handlePackageSelect = (pkg: PackageItem) => {
     setSelectedPackage(pkg)
@@ -73,6 +92,57 @@ export default function HotalyzeApp() {
   const handleMobileCall = () => {
     window.open("tel:+905059982093", "_self")
     setMobileMenuOpen(false) // Mobile menu'yu kapat
+  }
+
+  const handleCalculatorChange = (field: keyof typeof priceCalculator, value: string) => {
+    if (field === "hotelName" || field === "email") {
+      setPriceCalculator((prev) => ({
+        ...prev,
+        [field]: value,
+      }))
+    } else {
+      const numValue = Math.max(0, Number.parseInt(value) || 0)
+      setPriceCalculator((prev) => ({
+        ...prev,
+        [field]: numValue,
+      }))
+    }
+  }
+
+  const handleCalculateAndSend = async () => {
+    if (!priceCalculator.hotelName || !priceCalculator.email) {
+      alert("Lütfen otel adı ve e-posta adresini doldurun.")
+      return
+    }
+
+    setIsCalculating(true)
+
+    try {
+      const response = await fetch("/api/send-calculation", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          hotelName: priceCalculator.hotelName,
+          email: priceCalculator.email,
+          commentCount: priceCalculator.commentCount,
+          hotelRoomCount: priceCalculator.hotelRoomCount,
+          siteCount: priceCalculator.siteCount,
+          calculatedPrice: calculatedPrice,
+        }),
+      })
+
+      if (response.ok) {
+        alert("Hesaplama bilgileriniz başarıyla gönderildi! En kısa sürede sizinle iletişime geçeceğiz.")
+      } else {
+        alert("Bir hata oluştu. Lütfen tekrar deneyin.")
+      }
+    } catch (error) {
+      alert("Bir hata oluştu. Lütfen tekrar deneyin.")
+    } finally {
+      setIsCalculating(false)
+    }
   }
 
   return (
@@ -330,6 +400,157 @@ export default function HotalyzeApp() {
               <h2 className="text-3xl font-bold md:text-4xl">Size Özel Paketler</h2>
               <p className="text-xl text-muted-foreground">İhtiyacınıza uygun paketi seçin, hemen başlayın!</p>
             </div>
+
+            <div className="mb-12">
+              <Card className="mx-auto max-w-4xl border-2 border-blue-200 bg-gradient-to-br from-blue-50 via-white to-purple-50 shadow-2xl dark:from-blue-950 dark:via-gray-900 dark:to-purple-950">
+                <CardContent className="p-10">
+                  <div className="mb-8 text-center">
+                    <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600">
+                      <Calculator className="h-8 w-8 text-white" />
+                    </div>
+                    <h3 className="mb-2 text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                      Özel Fiyat Hesaplayıcı
+                    </h3>
+                    <p className="text-lg text-muted-foreground">İşletmenizin verilerine göre özel fiyat hesaplayın</p>
+                  </div>
+
+                  <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2">
+                    <div className="space-y-3">
+                      <Label htmlFor="hotelName" className="text-base font-semibold text-gray-700 dark:text-gray-300">
+                        🏨 Otel Adı
+                      </Label>
+                      <Input
+                        id="hotelName"
+                        type="text"
+                        value={priceCalculator.hotelName}
+                        onChange={(e) => handleCalculatorChange("hotelName", e.target.value)}
+                        placeholder="Otel adınızı girin"
+                        className="h-12 text-base border-2 border-gray-200 focus:border-blue-500 transition-colors"
+                      />
+                    </div>
+
+                    <div className="space-y-3">
+                      <Label
+                        htmlFor="calculatorEmail"
+                        className="text-base font-semibold text-gray-700 dark:text-gray-300"
+                      >
+                        📧 E-posta Adresi
+                      </Label>
+                      <Input
+                        id="calculatorEmail"
+                        type="email"
+                        value={priceCalculator.email}
+                        onChange={(e) => handleCalculatorChange("email", e.target.value)}
+                        placeholder="E-posta adresinizi girin"
+                        className="h-12 text-base border-2 border-gray-200 focus:border-blue-500 transition-colors"
+                      />
+                    </div>
+                  </div>
+
+                  <Separator className="my-8" />
+
+                  <div className="mb-8 grid grid-cols-1 gap-8 md:grid-cols-3">
+                    <div className="space-y-4">
+                      <div className="text-center">
+                        <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900">
+                          <span className="text-2xl">💬</span>
+                        </div>
+                        <Label
+                          htmlFor="commentCount"
+                          className="text-base font-semibold text-gray-700 dark:text-gray-300"
+                        >
+                          Yorum Sayısı
+                        </Label>
+                      </div>
+                      <Input
+                        id="commentCount"
+                        type="number"
+                        min="0"
+                        value={priceCalculator.commentCount}
+                        onChange={(e) => handleCalculatorChange("commentCount", e.target.value)}
+                        placeholder="0"
+                        className="h-14 text-center text-xl font-semibold border-2 border-gray-200 focus:border-blue-500 transition-colors"
+                      />
+                    </div>
+
+                    <div className="space-y-4">
+                      <div className="text-center">
+                        <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-purple-100 dark:bg-purple-900">
+                          <span className="text-2xl">🏨</span>
+                        </div>
+                        <Label
+                          htmlFor="hotelRoomCount"
+                          className="text-base font-semibold text-gray-700 dark:text-gray-300"
+                        >
+                          Otel Oda Sayısı
+                        </Label>
+                      </div>
+                      <Input
+                        id="hotelRoomCount"
+                        type="number"
+                        min="0"
+                        value={priceCalculator.hotelRoomCount}
+                        onChange={(e) => handleCalculatorChange("hotelRoomCount", e.target.value)}
+                        placeholder="0"
+                        className="h-14 text-center text-xl font-semibold border-2 border-gray-200 focus:border-purple-500 transition-colors"
+                      />
+                    </div>
+
+                    <div className="space-y-4">
+                      <div className="text-center">
+                        <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-green-100 dark:bg-green-900">
+                          <span className="text-2xl">🌐</span>
+                        </div>
+                        <Label htmlFor="siteCount" className="text-base font-semibold text-gray-700 dark:text-gray-300">
+                          Site Sayısı
+                        </Label>
+                      </div>
+                      <Input
+                        id="siteCount"
+                        type="number"
+                        min="0"
+                        value={priceCalculator.siteCount}
+                        onChange={(e) => handleCalculatorChange("siteCount", e.target.value)}
+                        placeholder="0"
+                        className="h-14 text-center text-xl font-semibold border-2 border-gray-200 focus:border-green-500 transition-colors"
+                      />
+                    </div>
+                  </div>
+
+                  <Separator className="my-8" />
+
+                  <div className="text-center">
+                    <div className="mb-4 text-lg text-muted-foreground">Hesaplanan Aylık Fiyat</div>
+                    <div className="mb-6 rounded-2xl bg-gradient-to-r from-blue-500 to-purple-600 p-6 text-white">
+                      <div className="text-5xl font-bold">{calculatedPrice.toLocaleString("tr-TR")} ₺</div>
+                      <div className="mt-2 text-sm opacity-90">Profesyonel analiz ve raporlama dahil</div>
+                    </div>
+                    <Button
+                      className="h-14 px-12 text-lg bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105"
+                      size="lg"
+                      onClick={handleCalculateAndSend}
+                      disabled={isCalculating}
+                    >
+                      {isCalculating ? (
+                        <>
+                          <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                          Gönderiliyor...
+                        </>
+                      ) : (
+                        <>
+                          <Rocket className="mr-2 h-5 w-5" />
+                          Hesapla ve Teklif Al
+                        </>
+                      )}
+                    </Button>
+                    <p className="mt-4 text-sm text-muted-foreground">
+                      🔒 Bilgileriniz güvenle saklanır • 📞 24 saat içinde arayacağız
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
             <div className="mb-12 grid grid-cols-1 gap-8 md:grid-cols-3">
               {packages.map((pkg) => (
                 <Card
