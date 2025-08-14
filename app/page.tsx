@@ -66,7 +66,7 @@ export default function HotalyzeApp() {
 
   useEffect(() => {
     const price =
-      priceCalculator.commentCount * 0.5 + priceCalculator.hotelRoomCount * 0.2 + priceCalculator.siteCount * 1 + 150
+      priceCalculator.commentCount * 0.5 + priceCalculator.hotelRoomCount * 0.3 + priceCalculator.siteCount * 1 + 150
     setCalculatedPrice(Math.round(price * 100) / 100) // Round to 2 decimal places
   }, [priceCalculator.commentCount, priceCalculator.hotelRoomCount, priceCalculator.siteCount])
 
@@ -522,7 +522,7 @@ export default function HotalyzeApp() {
                   <div className="text-center">
                     <div className="mb-4 text-lg text-muted-foreground">Hesaplanan Aylık Fiyat</div>
                     <div className="mb-6 rounded-2xl bg-gradient-to-r from-blue-500 to-purple-600 p-6 text-white">
-                      <div className="text-5xl font-bold">{calculatedPrice.toLocaleString("tr-TR")} ₺</div>
+                      <div className="text-5xl font-bold">{calculatedPrice.toLocaleString("tr-TR")} $</div>
                       <div className="mt-2 text-sm opacity-90">Profesyonel analiz ve raporlama dahil</div>
                     </div>
                     <Button
