@@ -17,6 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link rel="icon" type="image/png" href="/hotalyze.png" />
         <style>{`
 html {
   font-family: ${GeistSans.style.fontFamily};

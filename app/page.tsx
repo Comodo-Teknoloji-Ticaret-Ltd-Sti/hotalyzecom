@@ -28,9 +28,7 @@ import {
 import { DemoModal } from "@/components/demo-modal"
 import { PurchaseModal } from "@/components/purchase-modal"
 import { ScrollToTop } from "@/components/scroll-to-top"
-
 import { testimonials, packages, heroStats, analysisFeatures, whyHotalyzeFeatures, type PackageItem } from "@/lib/data"
-
 export default function HotalyzeApp() {
   const [darkMode, setDarkMode] = useState(false)
   const [selectedPackage, setSelectedPackage] = useState<PackageItem | null>(null)
@@ -152,7 +150,12 @@ export default function HotalyzeApp() {
         <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
           <div className="container mx-auto flex h-16 items-center justify-between">
             <div className="flex items-center space-x-2">
-              <BarChart3 className="h-8 w-8 text-blue-600" />
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl blur opacity-75"></div>
+                <div className="relative bg-white text-white p-2 rounded-xl">
+                  <img src="/hotalyze.png" alt="Hotalyze" className="w-8 h-8 rounded-xl" />
+                </div>
+              </div>
               <span className="text-2xl font-bold text-blue-600">Hotalyze</span>
               <Badge variant="secondary" className="hidden sm:inline-flex">
                 AI Powered
@@ -655,7 +658,12 @@ export default function HotalyzeApp() {
             <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
               <div>
                 <div className="mb-4 flex items-center space-x-2">
-                  <BarChart3 className="h-8 w-8 text-blue-400" />
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl blur opacity-75"></div>
+                    <div className="relative bg-white text-white p-2 rounded-xl">
+                      <img src="/hotalyze.png" alt="Hotalyze" className="w-8 h-8 rounded-xl" />
+                    </div>
+                  </div>
                   <span className="text-2xl font-bold">Hotalyze</span>
                 </div>
                 <p className="mb-4 text-gray-400">
