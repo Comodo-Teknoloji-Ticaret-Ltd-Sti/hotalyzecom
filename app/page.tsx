@@ -554,7 +554,7 @@ export default function HotalyzeApp() {
               </Card>
             </div>
 
-            <div className="mb-12 grid grid-cols-1 gap-8 md:grid-cols-3">
+            {/* <div className="mb-12 grid grid-cols-1 gap-8 md:grid-cols-3">
               {packages.map((pkg) => (
                 <Card
                   key={pkg.id}
@@ -596,7 +596,7 @@ export default function HotalyzeApp() {
                   </CardContent>
                 </Card>
               ))}
-            </div>
+            </div> */}
             <div className="text-center">
               <p className="mb-4 text-lg">🤔 Hangi paket size uygun emin değil misiniz?</p>
               <Button variant="outline" size="lg">
