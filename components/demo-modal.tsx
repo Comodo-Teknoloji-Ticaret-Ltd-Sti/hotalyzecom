@@ -68,7 +68,13 @@ export const DemoModal: React.FC<DemoModalProps> = ({ open, onClose, activeTab, 
         <DialogHeader className="p-3 sm:p-6 pb-0">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2 sm:space-x-3">
-              <Analytics className="h-6 w-6 sm:h-8 sm:w-8 text-blue-600" />
+              {/* <Analytics className="h-6 w-6 sm:h-8 sm:w-8 text-blue-600" /> */}
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl blur opacity-75"></div>
+                <div className="relative bg-white text-white p-2 rounded-xl">
+                  <img src="/hotalyze.png" alt="Hotalyze" className="w-8 h-8 rounded-xl" />
+                </div>
+              </div>
               <div>
                 <DialogTitle className="text-lg sm:text-2xl font-bold">Canlı Demo - Hotalyze</DialogTitle>
                 <p className="text-sm sm:text-base text-gray-600">Gerçek verilerle analiz örnekleri</p>
